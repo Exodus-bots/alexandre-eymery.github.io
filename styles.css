@@ -36,7 +36,7 @@ header {
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
     width: 100%;
-    padding: 1em;
+    padding: 0.5em 1em;
 }
 
 header .logo {
