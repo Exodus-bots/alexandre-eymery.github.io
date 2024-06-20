@@ -1,125 +1,50 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation d'Alexandre Eymery</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1>Alexandre Eymery</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">À propos</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
-    <section id="about" class="section">
-        <div class="container">
-            <h2>À propos de moi</h2>
-            <p>Bienvenue sur mon site de présentation ! Je m'appelle Alexandre Eymery et voici quelques informations à propos de moi.</p>
-             lycéen à saint jean de passy, je suis actuellement en teminale dans les spécilaitées maths/physique/Maths expertes. Mon objectif principal est de poursuivre mes études dans une classe préparatoire scintifique
-        </div>
-    </section>
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
 
-    <section id="services" class="section">
-        <div class="container">
-            <h2>Mes services</h2>
-            <p>Voici une liste de services que je propose :</p>
-            <ul>
-                <li>maths </li>
-                <li>vaiselle</li>
-                <li>brawl stars</li>
-                codage python 
-				
-            </ul>
-        </div>
-    </section>
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
-    <section id="contact" class="section">
-        <div class="container">
-            <h2>Contact</h2>
-            <p>Vous pouvez me contacter via :</p>
-            <ul>
-                <li>Email : <a href="mailto:alexandreymery07@gmail.com">alexandreymery07@gmail.com</a></li>
-                <li>Téléphone : +33 123 456 789</li>
-                <!-- personnel: +336 31 92 13 62 -->
-            </ul>
-        </div>
-    </section>
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Alexandre Eymery. Tous droits réservés.</p>
-        </div>
-    </footer>
-	
-/* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-}
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-}
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 24px;
-    text-align: center;
-}
-
-header nav ul {
-    list-style-type: none;
-    padding: 0;
-    text-align: center;
-}
-
-header nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-section {
-    padding: 20px 0;
-}
-
-.section h2 {
-    margin-top: 0;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-</body>
-</html>
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
