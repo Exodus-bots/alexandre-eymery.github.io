@@ -1,0 +1,9 @@
+/mon-portfolio
+│
+├── images
+│   ├── logo-saint-jean-de-passy.png
+│   └── background-header.jpg
+│
+├── index.html
+├── styles.css
+└── script.js
