@@ -42,6 +42,61 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 2em;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background-image: url('background-picture.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    padding: 1em;
+    position: sticky;
+    top: 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+    width: 100%;
+    padding: 1em;
+}
+
+header .logo {
+    height: 50px;
+    margin-right: 1em;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 1em;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
 }
 
 section {
@@ -69,5 +124,6 @@ form {
 form label, form input, form textarea, form button {
     margin-bottom: 1em;
 }
+
 
 
