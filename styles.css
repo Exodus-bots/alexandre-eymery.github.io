@@ -40,9 +40,8 @@ header {
 }
 
 header .logo {
-    position:static;
-    left:0;
-    height: 75%;
+    margin-right: auto;
+    height: 100px
 }
 
 nav ul {
