@@ -40,7 +40,10 @@ header {
 }
 
 header .logo {
-    height: 50px;
+    position:relative;
+    left:20px;
+    width:150px;
+    height: auto;
     margin-right: auto;
 }
 
